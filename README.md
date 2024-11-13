@@ -60,13 +60,14 @@ Students will build a Convolutional Neural Network (CNN) model to classify image
 ## Evaluation Criteria
 
 - Accuracy of the trained models on the validation set. **30 points**
-- Clarity and completeness of the report. **20 points**
+- Clarity and completeness of the report. **30 points**
 - Quality of code implementation. **5 points**
-- Proper handling of data preprocessing and models training. **30 points**
+- Proper handling of data preprocessing **10 points**
+- Proper models training. **10 points**
+- Code quality. **10 points**
 - Demonstration of understanding key concepts of deep learning. **5 points**
-- Model deployment. **10 points**
-
- <span style="color:red; weight: bold">**Passing Score is 70 points**</span>.
+- Model deployment. **Optional, +10 points**
+- Penalty: Going over time in your presentation **-10 points**
 
 ## Submission Details
 
