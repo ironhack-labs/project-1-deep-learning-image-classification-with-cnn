@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classification</title>
+</head>
+<body>
+    <h1>Image Classification</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <label for="image">Upload an image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <button type="submit">Predict</button>
+    </form>
+    {% if results %}
+    <h2>Results</h2>
+    <table border="1">
+        <tr>
+            <th>Model</th>
+            <th>Class</th>
+            <th>Confidence</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{ result.model }}</td>
+            <td>{{ result.class }}</td>
+            <td>{{ result.confidence }}</td>
+        </tr>
+        <tr>
+            <td colspan="3"><hr></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% if error %}
+    <h2>Error</h2>
+    <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>
