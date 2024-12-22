@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold text-center mb-4">Image Classification Results</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for result in results %}
+            <div class="bg-white rounded-lg shadow p-4">
+                <h2 class="text-lg font-bold">{{ result.filename }}</h2>
+                {% if result.error %}
+                <p class="text-red-500">{{ result.error }}</p>
+                {% else %}
+                <img class="w-full h-32 object-cover rounded my-2" src="/processed/{{ result.processed_image }}"
+                    alt="Preprocessed Image">
+                <p class="text-green-500 font-semibold">Predicted Class: {{ result.predicted_class }}</p>
+                <h3 class="font-bold mt-2">Probabilities:</h3>
+                <ul>
+                    {% for class_name, prob in result.probabilities.items() %}
+                    <li>{{ class_name }}: {{ prob|round(3) }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <a href="/" class="block text-center mt-4 text-blue-500 hover:underline">Upload more images</a>
+    </div>
+</body>
+
+</html>
