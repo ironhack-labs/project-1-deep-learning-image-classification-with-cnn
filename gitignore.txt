@@ -1,0 +1,5 @@
+images/
+myenv/
+image-prediction/
+processed/
+/uploads
