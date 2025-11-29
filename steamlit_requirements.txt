@@ -1,0 +1,67 @@
+🚀 Running the Streamlit Application Locally
+**********************************************
+Note: These steps outline how to set up and run the Streamlit app on your local machine. Functionality may vary depending on your operating system and environment.
+*******************************************
+1. Open the Project Folder 
+____________________________
+Locate and open the project directory that contains the following files:
+
+        app.py
+
+        requirements.txt
+
+        The trained model files (e.g., .h5 files)
+
+2. Launch the Terminal
+__________________________
+Open a terminal or command prompt and navigate into your project directory:
+
+        cd path_to_your_project_folder
+
+3. Create a Virtual Environment
+_________________________________
+Create a virtual environment to manage your project dependencies:
+
+        python3 -m venv venv
+
+4. Activate the Virtual Environment
+_____________________________________
+Activate the environment using the command for your operating system:
+
+    macOS/Linux:
+
+        source venv/bin/activate
+
+    Windows:
+
+        venv\Scripts\activate
+
+5. Install Dependencies
+_________________________________________
+  Install the required Python packages from the requirements.txt file:
+
+        pip install -r requirements.txt
+
+6. Run the Streamlit App
+___________________________________________
+    Start the Streamlit application:
+
+        streamlit run app.py
+
+7. Access the Application
+_____________________________________________
+    Once the app launches, Streamlit will display a local URL in your terminal, for example:
+
+        http://localhost:8501
+
+    Open this link in your browser to access the application.
+
+8. Use the Application
+_________________________________________________
+   In the app interface:
+
+        Select a trained model from the available list.
+
+        Upload an image.
+
+        View the model’s classification prediction.

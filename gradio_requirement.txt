@@ -1,0 +1,176 @@
+Full code
+**************************************************************************
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
+import numpy as np
+import gradio as gr
+
+# Load model
+model = load_model("adam_m1.h5")
+
+# Input image size
+IMG_SIZE = (32, 32)
+
+# Prediction function
+def predict(img):
+    try:
+        if img is None:
+            return "No image uploaded."
+        
+        img = img.resize(IMG_SIZE)
+        img_array = image.img_to_array(img)
+        img_array = np.expand_dims(img_array, axis=0) / 255.0
+        preds = model.predict(img_array)[0]
+        class_names = ["airplane","automobile","bird","cat","deer",
+                       "dog","frog","horse","ship","truck"]
+        return {class_names[i]: float(preds[i]) for i in range(len(preds))}
+    except Exception as e:
+        return f"Error processing image: {e}"
+
+# Gradio interface
+iface = gr.Interface(
+    fn=predict,
+    inputs=gr.Image(type="pil"),
+    outputs=gr.Label(num_top_classes=3),
+    title="Group-4 Deep Learning Model",
+    description="Upload an image and get predictions from my Keras model."
+)
+
+# Launch app
+iface.launch()
+**************************************************************************
+1. Install required packages
+========================================
+First, make sure you have all dependencies installed. Run this in your terminal:
+
+               pip install tensorflow gradio pillow numpy
+
+Explanation:
+_____________
+tensorflow → for loading your Keras model and preprocessing images.
+
+gradio → for creating a web interface.
+
+pillow → for handling image input (resize, convert, etc.).
+
+numpy → for numerical operations (arrays, normalization, etc.).
+
+2. Import libraries
+========================================
+      import tensorflow as tf
+      from tensorflow.keras.models import load_model
+      from tensorflow.keras.preprocessing import image
+      import numpy as np
+      import gradio as gr
+
+Explanation:
+___________________
+tensorflow.keras.models.load_model → loads your trained .h5 model.
+
+tensorflow.keras.preprocessing.image → for converting images to arrays.
+
+numpy → to manipulate image arrays for the model.
+
+gradio → to create the web interface.
+
+3. Load your trained model
+====================================
+# Load your trained Keras model
+        model = load_model("adam_m1.h5")
+
+Explanation:
+________________
+Replace "adam_m1.h5" with the path to your trained model file.
+
+This model will be used to predict image classes.
+
+4. Define input image size
+=======================================
+# Define the input image size expected by your model
+      IMG_SIZE = (32, 32)  # Update if your model expects a different size
+Explanation:
+___________________
+Neural networks require inputs of a fixed size.
+
+IMG_SIZE should match the size you used when training your model.
+
+5. Define the prediction function
+===================================
+
+          def predict(img):
+    try:
+        if img is None:
+            return "No image uploaded."
+        
+        # Resize image to model's input size
+        img = img.resize(IMG_SIZE)
+        
+        # Convert image to array and normalize
+        img_array = image.img_to_array(img)
+        img_array = np.expand_dims(img_array, axis=0) / 255.0  # Scale to 0-1
+        
+        # Get predictions from the model
+        preds = model.predict(img_array)[0]
+        
+        # Define class names (replace with your own if needed)
+        class_names = ["airplane","automobile","bird","cat","deer",
+                       "dog","frog","horse","ship","truck"]
+        
+        # Return top predictions as a dictionary
+        return {class_names[i]: float(preds[i]) for i in range(len(preds))}
+    
+    except Exception as e:
+        return f"Error processing image: {e}"
+
+
+Step-by-step explanation:
+___________________________________
+img.resize(IMG_SIZE) → resizes input image to the size expected by your model.
+
+image.img_to_array(img) → converts the PIL image to a NumPy array.
+
+np.expand_dims(..., axis=0) → adds a batch dimension (models expect batches).
+
+/ 255.0 → normalizes pixel values to the [0,1] range.
+
+model.predict(img_array) → runs the image through your trained model.
+
+We map predictions to the class names and return them as a dictionary for Gradio.
+
+6. Create Gradio Interface
+=================================
+iface = gr.Interface(
+    fn=predict,                       # Function to run
+    inputs=gr.Image(type="pil"),      # Input: image uploaded by user
+    outputs=gr.Label(num_top_classes=3), # Output: top 3 predictions
+    title="Group-4 Deep Learning Model",
+    description="Upload an image and get predictions from my Keras model."
+)
+
+
+Explanation:
+________________
+fn=predict → Gradio calls this function when a user uploads an image.
+
+inputs=gr.Image(type="pil") → Gradio expects a PIL image.
+
+outputs=gr.Label(num_top_classes=3) → returns the top 3 predicted classes.
+
+title & description → displayed on the Gradio web app.
+
+7. Launch the Gradio app
+============================
+
+iface.launch()
+
+Explanation:
+__________________________
+This starts a local web server.
+
+Gradio will display a web interface where you can upload images and get predictions.
+
+
+
+
+
