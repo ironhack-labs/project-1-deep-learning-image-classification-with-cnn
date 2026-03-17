@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CIFAR-10 Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f7f7f7;
+        }
+        h1 {
+            color: #222;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .muted {
+            color: #666;
+            font-size: 14px;
+        }
+        ul {
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CIFAR-10 Image Classifier</h1>
+    <p class="muted">Loaded checkpoint: {{ ckpt_path }}</p>
+
+    <div class="card">
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <label><b>Upload one or multiple images:</b></label><br><br>
+            <input type="file" name="images" multiple accept="image/*">
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+    {% if results %}
+        {% for r in results %}
+            <div class="card">
+                <h3>{{ r.filename }}</h3>
+
+                <p><b>Top 5 Predictions:</b></p>
+                <ul>
+                    {% for label, prob in r.top5 %}
+                        <li>{{ label }} — {{ "%.2f"|format(prob * 100) }}%</li>
+                    {% endfor %}
+                </ul>
+
+                <p><b>All class probabilities:</b></p>
+                <ul>
+                    {% for label, prob in r.all_probs %}
+                        <li>{{ label }} — {{ "%.2f"|format(prob * 100) }}%</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
