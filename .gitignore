@@ -1,0 +1,11 @@
+
+# Python's own speed-up copies (made automatically)
+__pycache__/
+# Mac system file
+.DS_Store
+# VS Code settings (can contain paths from my Mac)
+.vscode/
+# secret keys and passwords, never upload
+.env
+# Jupyter's automatic backup copies
+.ipynb_checkpoints/
